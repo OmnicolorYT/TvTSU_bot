@@ -38,7 +38,7 @@ class Roles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        role = discord.utils.get(member.guild.roles, id=805934621522526238)
+        role = self.bot.get_guild(759167756317884436).get_role(806886225474486272)
         await member.add_roles(role)
 
     @commands.Cog.listener()

@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import time
+from glob import glob
 
 
 class Moderation(commands.Cog):
@@ -55,6 +56,28 @@ class Moderation(commands.Cog):
             await ctx.send(f'Пользователь {member_name}#{member_discriminator} не заблокирован!')
         time.sleep(5)
         await ctx.channel.purge(limit=2)
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def load(self, ctx, extension):
+        self.bot.load_extension(f'./cogs/{extension}')
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def unload(self, ctx, extension):
+        self.bot.unload_extension(f'./cogs/{extension}')
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def reload(self, ctx, extension):
+        self.bot.unload_extension(f'./cogs/{extension}')
+        self.bot.load_extension(f'./cogs/{extension}')
+
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def pain(self,ctx):
+        await ctx.send("Ебаный sqlite \nТочки ему не нравятся блять")
+
 
     @commands.Cog.listener()
     async def on_ready(self):

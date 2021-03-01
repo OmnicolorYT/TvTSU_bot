@@ -3,6 +3,8 @@ from discord.ext import commands, tasks
 import time
 from itertools import cycle
 
+from raven.transport import requests
+
 status = cycle(['смотрю за сервером', 'модерирую чат', 'ищу музыку', 'пытаюсь не глючить', 'бешу администраторов',
                 'подкатываю к телкам', 'хочу спать', 'хачу пиццу', 'делаю домашку 7 класса', 'прогуливаю пары'])
 
@@ -27,7 +29,7 @@ async def statistics(self):
 
 @tasks.loop(seconds=10)
 async def change_status(self):
-    await self.bot.change_presence(activity=discord.Game(next(status)))
+    await self.bot.change_presence(activity=discord.Game(name=next(status)))
 
 
 class Information(commands.Cog):

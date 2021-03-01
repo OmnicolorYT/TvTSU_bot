@@ -1,12 +1,17 @@
 from datetime import datetime
 from glob import glob
-
+import time
+import asyncio
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
 from discord.ext.commands import MissingPermissions
 from discord import Intents, Embed, File
+from discord.ext import commands
+from apscheduler.schedulers.background import BackgroundScheduler
+from lib.cogs.timetable import Timetable
+import schedule
 
 from ..db import db
 
@@ -94,3 +99,4 @@ class Bot(BotBase):
 
 
 bot = Bot()
+
