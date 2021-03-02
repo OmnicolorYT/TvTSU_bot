@@ -22,6 +22,7 @@ COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
 class Bot(BotBase):
     def __init__(self):
+        self.OWNER_IDS = OWNER_IDS
         self.PREFIX = PREFIX
         self.ready = False
         self.guild = None
