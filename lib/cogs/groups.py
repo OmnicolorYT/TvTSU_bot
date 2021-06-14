@@ -23,7 +23,7 @@ class Groups(commands.Cog):
         exist = False
         has_group = False
         for group in ctx.author.guild.roles:
-            if group.name.startswith('группа') and group.name.split(' ') == groupname:
+            if group.name.startswith('группа') and group.name.split(' ')[1] == groupname:
                 await ctx.send('Такая группа уже существует!')
                 exist = True
                 break

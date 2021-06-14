@@ -15,7 +15,9 @@ class Roles(commands.Cog):
 
         emb.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         emb.set_image(
-            url='https://www.google.com/url?sa=i&url=http%3A%2F%2Fiast.pro%2Forganization%2Ftverskij-gosudarstvennyj-tehnicheskij-universitet%2F&psig=AOvVaw12zxzRAoeTYCk_g18fTiSi&ust=1612531576196000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDxhLCq0O4CFQAAAAAdAAAAABAD')
+            url='https://www.google.com/url?sa=i&url=http%3A%2F%2Fiast.pro%2Forganization%2Ftverskij-gosudarstvennyj'
+                '-tehnicheskij-universitet%2F&psig=AOvVaw12zxzRAoeTYCk_g18fTiSi&ust=1612531576196000&source=images&cd'
+                '=vfe&ved=0CAIQjRxqFwoTCLDxhLCq0O4CFQAAAAAdAAAAABAD')
         emb.insert_field_at(index=2, name='Список ролей', value='ФИТ - 💻'
                                                                 '\nФУСК - 📞'
                                                                 '\nФПИЭ - 🚜'

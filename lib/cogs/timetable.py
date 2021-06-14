@@ -46,7 +46,7 @@ async def testweekadmtime(self):
             for role in member.roles:
                 if role.name.startswith('группа'):
                     group_with_dot = role.name.split(' ')[1]
-            if (department == "ФИТ" and group_with_dot == "Б.ИВТ.ВМКСС.20.04"):
+            if department == "ФИТ" and group_with_dot == "Б.ИВТ.ВМКСС.20.04":
                 if numberofweek == 1:
                     emb = discord.Embed(
                         title=f'Расписание на {day}.{month}-{day + 6}.{month}',
@@ -86,7 +86,7 @@ async def testdayadmnow(self):
     day = int(datetime.date.today().strftime("%w"))
     month = int(datetime.date.today().strftime("%m"))
 
-    if datetime.datetime.now().hour == 7 and datetime.datetime.now().minute == 0 and day < 5:
+    if datetime.datetime.now().hour == 7 and datetime.datetime.now().minute == 0 and day <= 5:
         members = self.bot.get_guild(759167756317884436).members
         for member in members:
             department = ""
@@ -298,6 +298,59 @@ class Timetable(commands.Cog):
                                   inline=False)
         await ctx.author.send(embed=emb)
         cxn.close()
+
+    @commands.command()
+    async def dayadmnow(self, ctx):
+        global department, group_with_dot
+        numberofweek = datetime.date.today().isocalendar()[1] % 2  # 0 - синяя, 1 - красная
+        emojies = {1: str(self.bot.get_emoji(810917836951650314)),
+                   2: str(self.bot.get_emoji(810917837265698876)),
+                   3: str(self.bot.get_emoji(810917837241450506)),
+                   4: str(self.bot.get_emoji(810917837065420820))}
+        day = int(datetime.date.today().strftime("%w"))
+        month = int(datetime.date.today().strftime("%m"))
+
+        if True:
+            members = self.bot.get_guild(759167756317884436).members
+            for member in members:
+                department = ""
+                group_with_dot = ""
+
+                for role in member.roles:
+                    if role.name.find(' ') != -1 and role.name.split(' ')[1] in departments:
+                        department = role.name.split(' ')[1]
+                for role in member.roles:
+                    if role.name.startswith('группа'):
+                        group_with_dot = role.name.split(' ')[1]
+                zero = ""
+                if int(datetime.date.today().strftime("%d")) < 10:
+                    zero = 0
+                zero1 = ""
+                if month < 10:
+                    zero1 = 0
+                answer = ""
+                color = ""
+                if department == "ФИТ" and group_with_dot == "Б.ИВТ.ВМКСС.20.04" and (member.name == 'Sereja' or member.name == 'Omnicolor'):
+                    if numberofweek == 1:
+                        color += '(красная)'
+                    else:
+                        color += '(синяя)'
+                    timetable_path = f"./data/timetable/{department}/tt.db"
+                    cxn = connect(timetable_path)
+                    cur = cxn.cursor()
+                    cur.execute(f"SELECT * FROM '{group_with_dot}';")
+                    all_subjects = cur.fetchall()
+                    for i in range(len(all_subjects)):
+                        if all_subjects[i][0] == numberofweek and all_subjects[i][1] == day:
+                            if all_subjects[i][2] == 1:
+                                answer += f'‌‌‍‍**{days[all_subjects[i][1] - 1]} {zero}{datetime.date.today().strftime("%d")}.{zero1}{month}**\n  {times[all_subjects[i][3] - 1]}'
+                                answer += f'\n  {all_subjects[i][4]} ({all_subjects[i][5]}) **|** {all_subjects[i][6]}'
+                            else:
+                                answer += f'\n  {times[all_subjects[i][3] - 1]}'
+                                answer += f'\n  {all_subjects[i][4]} ({all_subjects[i][5]}) **|** {all_subjects[i][6]}'
+                    answer += '\nᅠ'
+                    await member.send(answer)
+                    cxn.close()
 
     ### запись на тест ###
 

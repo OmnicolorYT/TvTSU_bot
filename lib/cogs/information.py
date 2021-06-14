@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands, tasks
 import time
 from itertools import cycle
+from PIL import Image, ImageDraw, ImageFont
+import requests
 
 from raven.transport import requests
 
@@ -35,6 +37,21 @@ async def change_status(self):
 class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def welcome(self, ctx):
+        channel = self.bot.get_channel(805934621522526238)
+        back = Image.open("./lib/Sources/Welcome Images/TvTSU_welcome.jpg")
+        font = ImageFont.truetype('./lib/Sources/Welcome font/GothaProNarBol.otf', size=16)
+        draw_text =ImageDraw.Draw(back)
+        #draw_text.text(
+            #(30, 20),
+            #format('Добро'),
+            #(0,0,0),
+            #font=font,
+        #)
+        back.paste(Image.open(requests.get(ctx.author.avatar_url_as(static_format='png'), stream=True)).raw)
+        await channel.send(back)
 
     @commands.Cog.listener()
     async def on_ready(self):
