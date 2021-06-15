@@ -81,7 +81,7 @@ class Moderation(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('moderation загружен')
+        print('[log]moderation загружен')
 
 
 def setup(bot):

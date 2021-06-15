@@ -113,7 +113,7 @@ class Roles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('roles загружен')
+        print('[log]roles загружен')
 
 
 def setup(bot):

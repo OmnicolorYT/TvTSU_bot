@@ -57,7 +57,7 @@ class Information(commands.Cog):
     async def on_ready(self):
         statistics.start(self)
         change_status.start(self)
-        print('information загружен')
+        print('[log]information загружен')
 
 
 def setup(bot):

@@ -1,20 +1,9 @@
-# -*- coding: utf-8 -*-
-import threading
+import datetime
+from sqlite3 import connect
+
 import discord
 from discord.ext import commands
 from discord.ext import tasks
-import time
-from datetime import timedelta
-import asyncio
-from glob import glob
-import datetime
-from os.path import isfile
-from sqlite3 import connect
-import schedule
-import apscheduler
-from apscheduler.triggers.cron import CronTrigger
-from apscheduler.schedulers.background import BackgroundScheduler
-import calendar
 
 departments = ['ФИТ', 'ФУСК', 'ФПИЭ', 'ИСФ', 'ХТФ', 'ФМАС', 'МашФак', 'ФЗО']
 days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница']
@@ -330,7 +319,8 @@ class Timetable(commands.Cog):
                     zero1 = 0
                 answer = ""
                 color = ""
-                if department == "ФИТ" and group_with_dot == "Б.ИВТ.ВМКСС.20.04" and (member.name == 'Sereja' or member.name == 'Omnicolor'):
+                if department == "ФИТ" and group_with_dot == "Б.ИВТ.ВМКСС.20.04" and (
+                        member.name == 'Sereja' or member.name == 'Omnicolor'):
                     if numberofweek == 1:
                         color += '(красная)'
                     else:
@@ -386,7 +376,7 @@ class Timetable(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('timetable загружен')
+        print('[log]timetable загружен')
         testweekadmtime.start(self)
         testdayadmnow.start(self)
         testdayadmnext.start(self)

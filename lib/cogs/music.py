@@ -10,9 +10,15 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    #/test
+
+
+
+    #test/
+
     @commands.Cog.listener()
     async def on_ready(self):
-        print('music загружен')
+        print('[log]music загружен')
 
 
 def setup(bot):
